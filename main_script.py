@@ -37,7 +37,7 @@ def Trend():
 def api_access(city_name, weather_phenomena):
     '''works with the openweather api
     Args:
-        pass
+        The name of the city entered and teh weather associated with that city
     Side Effects:
         gets weather data from open weather api
     '''    
