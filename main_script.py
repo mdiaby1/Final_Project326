@@ -8,21 +8,18 @@ class City:
     Attributes - City that user wants the weather information of
     '''
     def __init__(self, name):
+        #you need to perform input validation on the name of the city the user provides
         self.name = name
-        #you will pass in the name of the city into the api_access function
-        #then you will get all of this weather data from the api
         
-        
-        
-        #self.current_temp =call to api access function for json data
-        #self.feels_like_temp =call to api access function for json data
-        #self.max_temp
-        #self.min_temp
-        #self.air_pressure
-        #self.humidity
-        #self.cloudiness
-        #self.wind_speed
-        #self.wind_direction = call to api acccess functio
+        self.current_temp = api_access(self.name, 'current_temp')
+        self.feels_like_temp = api_access(self.name, 'feels_like_temp')
+        self.max_temp = api_access(self.name, 'max_temp')
+        self.min_temp = api_access(self.name, 'min_temp')
+        self.air_pressure = api_access(self.name, 'air_pressure')
+        self.humidity = api_access(self.name, 'humidity')
+        self.cloudiness = api_access(self.name, 'cloudiness')
+        self.wind_speed = api_access(self.name, 'wind_speed')
+        self.wind_direction = api_access(self.name, 'wind_direction')
         
 def Trend():
     '''function that analyzes the weather data of the city entered
@@ -46,10 +43,36 @@ def api_access(city_name, weather_phenomena):
     base_url =  "https://api.openweathermap.org/data/2.5/weather?"
     updated_url = base_url + api_key + city_name #this is incorrect
     api_response = requests.get(updated_url)
-    weather_data = api_response,json()
+    weather_data = api_response.json()
+    
     main_weather_measures = weather_data['main']
     clouds_data = weather_data['clouds']
     wind_data = weather_data['wind']
     
-    #if weather_phenomena == "current_temp":
-        #return current_temp by using a call to the api function
+    if weather_phenomena == "current_temp":
+        current_temp_kelvin_to_fahr = (main_weather_measures["temp"] - 273.15) * 9/5 + 32
+        return current_temp_kelvin_to_fahr
+    elif weather_phenomena == "feels_like_temp":
+        feels_like_temp_kelvin_to_fahr = (main_weather_measures["feels_like"] - 273.15) * 9/5 + 32
+        return feels_like_temp_kelvin_to_fahr
+    elif weather_phenomena == "max_temp":
+        max_temp_kelvin_to_fahr = (main_weather_measures["temp_max"] - 273.15) * 9/5 + 32
+        return max_temp_kelvin_to_fahr
+    elif weather_phenomena == "min_temp":
+        min_temp_kelvin_to_fahr = (main_weather_measures["temp_min"] - 273.15) * 9/5 + 32
+        return min_temp_kelvin_to_fahr
+    elif weather_phenomena == "air_pressure":
+        air_pressure_hpa_to_inHg = (main_weather_measures["pressure"]) * 0.03
+        return air_pressure_hpa_to_inHg
+    elif weather_phenomena == "humidity":
+        humidity_percentage_data = main_weather_measures["humidity"]
+        return humidity_percentage_data
+    elif weather_phenomena == "cloudiness":
+        cloudiness_percentage_data = clouds_data["all"]
+        return cloudiness_percentage_data
+    elif weather_phenomena == "wind_speed":
+        wind_speed_ms_to_mph = wind_data["speed"] * 2.237
+        return wind_speed_ms_to_mph
+    elif weather_phenomena == "wind_direction":
+        wind_direction_data = wind_data["deg"]
+        return wind_direction_data
