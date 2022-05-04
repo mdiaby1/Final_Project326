@@ -11,15 +11,15 @@ class City:
         #you need to perform input validation on the name of the city the user provides
         self.name = name
         
-        self.current_temp = api_access(self.name, 'current_temp')
-        self.feels_like_temp = api_access(self.name, 'feels_like_temp')
-        self.max_temp = api_access(self.name, 'max_temp')
-        self.min_temp = api_access(self.name, 'min_temp')
-        self.air_pressure = api_access(self.name, 'air_pressure')
-        self.humidity = api_access(self.name, 'humidity')
-        self.cloudiness = api_access(self.name, 'cloudiness')
-        self.wind_speed = api_access(self.name, 'wind_speed')
-        self.wind_direction = api_access(self.name, 'wind_direction')
+        self.current_temp = access_api(self.name, 'current_temp')
+        self.feels_like_temp = access_api(self.name, 'feels_like_temp')
+        self.max_temp = access_api(self.name, 'max_temp')
+        self.min_temp = access_api(self.name, 'min_temp')
+        self.air_pressure = access_api(self.name, 'air_pressure')
+        self.humidity = access_api(self.name, 'humidity')
+        self.cloudiness = access_api(self.name, 'cloudiness')
+        self.wind_speed = access_api(self.name, 'wind_speed')
+        self.wind_direction = access_api(self.name, 'wind_direction')
         
 def Trend():
     '''function that analyzes the weather data of the city entered
@@ -31,7 +31,7 @@ def Trend():
     '''
     pass
 
-def api_access(city_name, weather_phenomena):
+def access_api(city_name, weather_phenomena):
     '''works with the openweather api
     Args:
         The name of the city entered and teh weather associated with that city
