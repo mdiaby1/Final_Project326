@@ -1,26 +1,33 @@
-'''Our app will tell user about the weather of a city specified by user
+'''Our app will tell the user about the weather of a city they have selected
 '''
 import json
 import requests
+
+#NEED 6 MORE ORIGINAL FUNCTIONS - MORY & OTHER MEMBERS WILL DO THIS 
+#NEED TO DOCUMENT CODE
+#NEED TO INCLUDE UNIT TESTS (creating a city object, testing each function like city_and_state_validation)
 
 class City:
     '''Holds information about the city that the user enters
     Attributes - City that user wants the weather information of
     '''
-    def __init__(self, name):
-        #you need to perform input validation on the name of the city the user provides
-        self.name = name
+    def __init__(self, city_name, state):
+        #you need to perform input validation on the name of the city and state the user provides; probably in the main?
+        self.city_name = city_name
+        self.state = state
         
-        self.current_temp = access_api(self.name, 'current_temp')
-        self.feels_like_temp = access_api(self.name, 'feels_like_temp')
-        self.max_temp = access_api(self.name, 'max_temp')
-        self.min_temp = access_api(self.name, 'min_temp')
-        self.air_pressure = access_api(self.name, 'air_pressure')
-        self.humidity = access_api(self.name, 'humidity')
-        self.cloudiness = access_api(self.name, 'cloudiness')
-        self.wind_speed = access_api(self.name, 'wind_speed')
-        self.wind_direction = access_api(self.name, 'wind_direction')
-        
+        self.current_temp = access_api(self.name, self.state, 'current_temp')
+        self.feels_like_temp = access_api(self.name, self.state, 'feels_like_temp')
+        self.max_temp = access_api(self.name, self.state, 'max_temp')
+        self.min_temp = access_api(self.name, self.state, 'min_temp')
+        self.air_pressure = access_api(self.name, self.state, 'air_pressure')
+        self.humidity = access_api(self.name, self.state, 'humidity')
+        self.cloudiness = access_api(self.name, self.state, 'cloudiness')
+        self.wind_speed = access_api(self.name, self.state, 'wind_speed')
+        self.wind_direction = access_api(self.name, self.state, 'wind_direction')
+        #add more attributes like precipitation?
+
+#THIS Trend() FUNCTION IS OBSOLETE; WE WILL MAKE SEPARATE TREND FUNCTIONS FOR EFFICIENCY'S SAKE      
 def Trend():
     '''function that analyzes the weather data of the city entered
     Args:
@@ -31,17 +38,16 @@ def Trend():
     '''
     pass
 
-def access_api(city_name, weather_phenomena):
+def access_api(city_name, state, weather_phenomena):
     '''works with the openweather api
     Args:
         The name of the city entered and teh weather associated with that city
     Side Effects:
         gets weather data from open weather api
     '''    
-    
     api_key = "0cc0e4d9235938991e58db115667109b"
-    base_url =  "https://api.openweathermap.org/data/2.5/weather?"
-    updated_url = base_url + api_key + city_name #this is incorrect
+    base_url =  "https://api.openweathermap.org/data/2.5/weather?q="
+    updated_url = base_url + city_name + ",US-" + state + "&appid=" + api_key 
     api_response = requests.get(updated_url)
     weather_data = api_response.json()
     
@@ -76,3 +82,36 @@ def access_api(city_name, weather_phenomena):
     elif weather_phenomena == "wind_direction":
         wind_direction_data = wind_data["deg"]
         return wind_direction_data
+
+
+#if city and state not in files, while loop until the user provides a correct city or state
+#CITY AND STATE DATA FROM https://simplemaps.com/data/us-cities
+def city_and_state_verification(city_name, state):
+    cities_fh = open("cities.txt", "r")
+    cities_fh = cities_fh.read()
+    is_city_in_cities_file = None
+
+    states_fh = open("states.txt", "r")
+    states_fh = states_fh.read()
+    is_state_in_states_file = None
+
+    if city_name in cities_fh:
+        is_city_in_cities_file = True
+    else:
+        is_city_in_cities_file = False
+
+    if state in states_fh:
+        is_state_in_states_file = True
+    else:
+        is_state_in_states_file = False
+
+    if is_city_in_cities_file == False:
+        print("The city you have provided is invalid.")
+
+    if is_state_in_states_file == False:
+        print("\nThe state you have provided is invalid.")
+
+    if is_city_in_cities_file == True and is_state_in_states_file == True:
+        return True
+    else:
+        return False
