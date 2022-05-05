@@ -115,3 +115,11 @@ def city_and_state_verification(city_name, state):
         return True
     else:
         return False
+
+#this function will return a polished weather report using all the data from the two city objects and the multiple trend functions   
+#this function will be used in the main? after the cities have been created?
+def weather_report(first_city, second_city):
+    #print out all the attributes of both city objects
+    #call all trend functions here and print what they say
+    
+    
