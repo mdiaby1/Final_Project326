@@ -25,7 +25,10 @@ class City:
         self.cloudiness = access_api(self.name, self.state, 'cloudiness')
         self.wind_speed = access_api(self.name, self.state, 'wind_speed')
         self.wind_direction = access_api(self.name, self.state, 'wind_direction')
-        #add more attributes like precipitation?
+        self.rain_volume_past_1hr_mm(self.name, self.state, "rain_1hr")
+        self.rain_volume_past_3hr_mm(self.name, self.state, "rain_3hr")
+        self.snow_volume_past_1hr_mm(self.name, self.state, "snow_1hr")
+        self.snow_volume_past_3hr_mm(self.name, self.state, "snow_3hr")
 
 #THIS Trend() FUNCTION IS OBSOLETE; WE WILL MAKE SEPARATE TREND FUNCTIONS FOR EFFICIENCY'S SAKE      
 def Trend():
@@ -54,6 +57,9 @@ def access_api(city_name, state, weather_phenomena):
     main_weather_measures = weather_data['main']
     clouds_data = weather_data['clouds']
     wind_data = weather_data['wind']
+    rain_data = weather_data['rain']
+    snow_data = weather_data['snow']
+    
     
     if weather_phenomena == "current_temp":
         current_temp_kelvin_to_fahr = (main_weather_measures["temp"] - 273.15) * 9/5 + 32
@@ -82,6 +88,19 @@ def access_api(city_name, state, weather_phenomena):
     elif weather_phenomena == "wind_direction":
         wind_direction_data = wind_data["deg"]
         return wind_direction_data
+    elif weather_phenomena == "rain_1hr":
+        rain_1hr_data = rain_data["1hr"]
+        return rain_1hr_data
+    elif weather_phenomena == "rain_3hr":
+        rain_3hr_data = rain_data["3hr"]
+        return rain_3hr_data
+    elif weather_phenomena == "snow_1hr":
+        snow_1hr_data = snow_data["1hr"]
+        return snow_1hr_data
+    elif weather_phenomena == "snow_3hr":
+        snow_3hr_data = snow_data["3hr"]
+        return snow_3hr_data
+        
 
 
 #if city and state not in files, while loop until the user provides a correct city or state
