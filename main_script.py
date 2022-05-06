@@ -12,7 +12,6 @@ class City:
     Attributes - City that user wants the weather information of
     '''
     def __init__(self, city_name, state):
-        #you need to perform input validation on the name of the city and state the user provides; probably in the main?
         self.city_name = city_name
         self.state = state
         
@@ -125,7 +124,7 @@ def city_and_state_verification(city_name, state):
         is_state_in_states_file = False
 
     if is_city_in_cities_file == False:
-        print("The city you have provided is invalid.")
+        print("\nThe city you have provided is invalid.")
 
     if is_state_in_states_file == False:
         print("\nThe state you have provided is invalid.")
@@ -138,7 +137,25 @@ def city_and_state_verification(city_name, state):
 #this function will return a polished weather report using all the data from the two city objects and the multiple trend functions   
 #this function will be used in the main? after the cities have been created?
 def weather_report(first_city, second_city):
+    pass
     #print out all the attributes of both city objects
     #call all trend functions here and print what they say
     
+first_city_name = str(input("Please enter the name of the first city you'd like to know the weather for: "))
+first_city_state = str(input("Please enter the state in which the first city is located: "))
+
+while city_and_state_verification(first_city_name, first_city_state) == False:
+    first_city_name = str(input("\nPlease enter the name of the first city you'd like to know the weather for: "))
+    first_city_state = str(input("Please enter the state in which the first city is located: "))
+
+second_city_name = str(input("\nPlease enter the name of the second city you'd like to know the weather for: "))
+second_city_state = str(input("Please enter the state in which the second city is located: "))
+
+while city_and_state_verification(second_city_name, second_city_state) == False:
+    second_city_name = str(input("\nPlease enter the name of the second city you'd like to know the weather for: "))
+    second_city_state = str(input("Please enter the state in which the second city is located: "))
     
+first_city = City(first_city_name, first_city_state)
+second_city = City(second_city_name, second_city_state)
+
+weather_report(first_city, second_city)
