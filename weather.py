@@ -36,6 +36,13 @@ class Trend:
         windy = access_api(weather_phenomena = "wind_direction"), access_api(weather_phenomena = "wind_speed")
         return windy
     
+    def max_temp(city_name,state):
+        '''max temp of certain area'''
+        city_name = city_name
+        state = state
+        heat = access_api(weather_phenomena = "max_temp")
+        return heat
+    
     
     
     
