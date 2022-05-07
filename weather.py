@@ -42,6 +42,7 @@ class Trend:
         state = state
         heat = access_api(weather_phenomena = "max_temp")
         return heat
+<<<<<<< Updated upstream
      
     def Temp_in_area(city_name,state):
         """The current temp of a certain area"""
@@ -57,8 +58,14 @@ class Trend:
          cloudiness = access_api(weather_phenomena= 'cloudiness')
          return cloudiness
     
+=======
+>>>>>>> Stashed changes
     
     
     
     
     
+<<<<<<< Updated upstream
+=======
+    
+>>>>>>> Stashed changes
