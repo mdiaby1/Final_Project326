@@ -1,7 +1,6 @@
 '''Our app will tell the user about the weather of a city they have selected
 '''
 import json
-from sre_parse import State
 import requests
 
 #NEED 6 MORE ORIGINAL FUNCTIONS - MORY & OTHER MEMBERS WILL DO THIS 
@@ -16,30 +15,18 @@ class City:
         self.city_name = city_name
         self.state = state
         
-        self.current_temp = access_api(self.name, self.state, 'current_temp')
-        self.feels_like_temp = access_api(self.name, self.state, 'feels_like_temp')
-        self.max_temp = access_api(self.name, self.state, 'max_temp')
-        self.min_temp = access_api(self.name, self.state, 'min_temp')
-        self.air_pressure = access_api(self.name, self.state, 'air_pressure')
-        self.humidity = access_api(self.name, self.state, 'humidity')
-        self.cloudiness = access_api(self.name, self.state, 'cloudiness')
-        self.wind_speed = access_api(self.name, self.state, 'wind_speed')
-        self.wind_direction = access_api(self.name, self.state, 'wind_direction')
-        self.rain_volume_past_1hr_mm(self.name, self.state, "rain_1hr")
-        self.rain_volume_past_3hr_mm(self.name, self.state, "rain_3hr")
-        self.snow_volume_past_1hr_mm(self.name, self.state, "snow_1hr")
-        self.snow_volume_past_3hr_mm(self.name, self.state, "snow_3hr")
+        self.current_temp = access_api(self.city_name, self.state, 'current_temp')
+        self.feels_like_temp = access_api(self.city_name, self.state, 'feels_like_temp')
+        self.max_temp = access_api(self.city_name, self.state, 'max_temp')
+        self.min_temp = access_api(self.city_name, self.state, 'min_temp')
+        self.air_pressure = access_api(self.city_name, self.state, 'air_pressure')
+        self.humidity = access_api(self.city_name, self.state, 'humidity')
+        self.cloudiness = access_api(self.city_name, self.state, 'cloudiness')
+        self.wind_speed = access_api(self.city_name, self.state, 'wind_speed')
+        self.wind_direction = access_api(self.city_name, self.state, 'wind_direction')
+        self.visibility = access_api(self.city_name, self.state, 'visibility')
 
-#THIS Trend() FUNCTION IS OBSOLETE; WE WILL MAKE SEPARATE TREND FUNCTIONS FOR EFFICIENCY'S SAKE      
-def Trend():
-    '''function that analyzes the weather data of the city entered
-    Args:
-        City entered by user fron city class
-    Returns:
-        Returns weather from city
-        
-    '''
-    pass
+#PUT THE NEW TREND FUNCTIONS HERE 
 
 def access_api(city_name, state, weather_phenomena):
     '''works with the openweather api
@@ -57,25 +44,26 @@ def access_api(city_name, state, weather_phenomena):
     main_weather_measures = weather_data['main']
     clouds_data = weather_data['clouds']
     wind_data = weather_data['wind']
-    rain_data = weather_data['rain']
-    snow_data = weather_data['snow']
-    
+    visibility_data = weather_data['visibility']
+    #cannot get rain or snow data: According to OpenWeatherMap, 'If you do not see some of the parameters in your API response it means that these weather phenomena 
+    #are just not happened for the time of measurement for the city or location chosen. Only really measured or calculated data is 
+    #displayed in API response.'
     
     if weather_phenomena == "current_temp":
-        current_temp_kelvin_to_fahr = (main_weather_measures["temp"] - 273.15) * 9/5 + 32
-        return current_temp_kelvin_to_fahr
+        current_temp_fahr = round((main_weather_measures["temp"] - 273.15) * 9/5 + 32)
+        return current_temp_fahr
     elif weather_phenomena == "feels_like_temp":
-        feels_like_temp_kelvin_to_fahr = (main_weather_measures["feels_like"] - 273.15) * 9/5 + 32
-        return feels_like_temp_kelvin_to_fahr
+        feels_like_temp_fahr = round((main_weather_measures["feels_like"] - 273.15) * 9/5 + 32)
+        return feels_like_temp_fahr
     elif weather_phenomena == "max_temp":
-        max_temp_kelvin_to_fahr = (main_weather_measures["temp_max"] - 273.15) * 9/5 + 32
-        return max_temp_kelvin_to_fahr
+        max_temp_fahr = round((main_weather_measures["temp_max"] - 273.15) * 9/5 + 32)
+        return max_temp_fahr
     elif weather_phenomena == "min_temp":
-        min_temp_kelvin_to_fahr = (main_weather_measures["temp_min"] - 273.15) * 9/5 + 32
-        return min_temp_kelvin_to_fahr
+        min_temp_fahr = round((main_weather_measures["temp_min"] - 273.15) * 9/5 + 32)
+        return min_temp_fahr
     elif weather_phenomena == "air_pressure":
-        air_pressure_hpa_to_inHg = (main_weather_measures["pressure"]) * 0.03
-        return air_pressure_hpa_to_inHg
+        air_pressure_inHg = round((main_weather_measures["pressure"]) * 0.03, 2)
+        return air_pressure_inHg
     elif weather_phenomena == "humidity":
         humidity_percentage_data = main_weather_measures["humidity"]
         return humidity_percentage_data
@@ -83,26 +71,15 @@ def access_api(city_name, state, weather_phenomena):
         cloudiness_percentage_data = clouds_data["all"]
         return cloudiness_percentage_data
     elif weather_phenomena == "wind_speed":
-        wind_speed_ms_to_mph = wind_data["speed"] * 2.237
-        return wind_speed_ms_to_mph
+        wind_speed_mph = round(wind_data["speed"] * 2.237)
+        return wind_speed_mph
     elif weather_phenomena == "wind_direction":
         wind_direction_data = wind_data["deg"]
         return wind_direction_data
-    elif weather_phenomena == "rain_1hr":
-        rain_1hr_data = rain_data["1hr"]
-        return rain_1hr_data
-    elif weather_phenomena == "rain_3hr":
-        rain_3hr_data = rain_data["3hr"]
-        return rain_3hr_data
-    elif weather_phenomena == "snow_1hr":
-        snow_1hr_data = snow_data["1hr"]
-        return snow_1hr_data
-    elif weather_phenomena == "snow_3hr":
-        snow_3hr_data = snow_data["3hr"]
-        return snow_3hr_data
+    elif weather_phenomena == "visibility":
+        visibility_data_miles = round(visibility_data / 1609, 2)
+        return visibility_data_miles
         
-
-
 #if city and state not in files, while loop until the user provides a correct city or state
 #CITY AND STATE DATA FROM https://simplemaps.com/data/us-cities
 def city_and_state_verification(city_name, state):
@@ -136,29 +113,41 @@ def city_and_state_verification(city_name, state):
         return False
 
 #this function will return a polished weather report using all the data from the two city objects and the multiple trend functions   
-#this function will be used in the main? after the cities have been created?
-
 def weather_report(first_city, second_city):
-    pass
-    #print out all the attributes of both city objects
+    city_list = [first_city, second_city]
+    
+    for city in city_list:
+        print("\nWeather details for " + str(city.city_name) + ", " + str(city.state))
+        print("Current Temperature: " + str(city.current_temp) + "°F")
+        print("Feels Like Temperature: " + str(city.feels_like_temp) + "°F")
+        print("Max Temperature: " + str(city.max_temp) + "°F")
+        print("Min Temperature: " + str(city.min_temp) + "°F")
+        print("Air Pressure: " + str(city.air_pressure) + " inHg")
+        print("Humidity: " + str(city.humidity) + "%")
+        print("Cloudiness: " + str(city.cloudiness) + "%")
+        print("Wind Speed: " + str(city.wind_speed) + " miles per hour")
+        print("Wind Direction: " + str(city.wind_direction) + " degrees")
+        print("Visibility: " + str(city.visibility) + " miles *Max API value "
+              "is 10 km, so visibility may be greater than 6.22 miles*\n")
+    
     #call all trend functions here and print what they say
     
-first_city_name = str(input("Please enter the name of the first city you'd like to know the weather for: "))
-first_city_state = str(input("Please enter the state in which the first city is located: "))
-
-while city_and_state_verification(first_city_name, first_city_state) == False:
-    first_city_name = str(input("\nPlease enter the name of the first city you'd like to know the weather for: "))
+if __name__ == "__main__":
+    first_city_name = str(input("Please enter the name of the first city you'd like to know the weather for: "))
     first_city_state = str(input("Please enter the state in which the first city is located: "))
 
-second_city_name = str(input("\nPlease enter the name of the second city you'd like to know the weather for: "))
-second_city_state = str(input("Please enter the state in which the second city is located: "))
+    while city_and_state_verification(first_city_name, first_city_state) == False:
+        first_city_name = str(input("\nPlease enter the name of the first city you'd like to know the weather for: "))
+        first_city_state = str(input("Please enter the state in which the first city is located: "))
 
-while city_and_state_verification(second_city_name, second_city_state) == False:
     second_city_name = str(input("\nPlease enter the name of the second city you'd like to know the weather for: "))
     second_city_state = str(input("Please enter the state in which the second city is located: "))
-    
-first_city = City(first_city_name, first_city_state)
-second_city = City(second_city_name, second_city_state)
 
-#weather_report(first_city, second_city)#
->>>>>>> Stashed changes
+    while city_and_state_verification(second_city_name, second_city_state) == False:
+        second_city_name = str(input("\nPlease enter the name of the second city you'd like to know the weather for: "))
+        second_city_state = str(input("Please enter the state in which the second city is located: "))
+        
+    first_city = City(first_city_name, first_city_state)
+    second_city = City(second_city_name, second_city_state)
+
+    weather_report(first_city, second_city)
