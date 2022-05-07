@@ -27,6 +27,17 @@ class City: "Used to hold information about the city the user asked for"
 
 
 
-
-class Trend: """Used to perform data analysis on weather data (i.e., differences in certain aspects of the weather between two cities, or over a certain period of time)"""
-
+class Trend:
+    """Used to perform data analysis on weather data (i.e., differences in certain aspects of the weather between two cities, or over a certain period of time)"""  
+    def how_windy(city_name,state):
+        '''Tells how windy certain area is'''
+        city_name = city_name
+        state = state
+        windy = access_api(weather_phenomena = "wind_direction"), access_api(weather_phenomena = "wind_speed")
+        return windy
+    
+    
+    
+    
+    
+    
