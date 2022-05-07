@@ -42,6 +42,20 @@ class Trend:
         state = state
         heat = access_api(weather_phenomena = "max_temp")
         return heat
+     
+    def Temp_in_area(city_name,state):
+        """The current temp of a certain area"""
+        city_name = city_name
+        state = state
+        temperature = access_api(weather_phenomena= "current_temp")
+        return temperature
+
+     def how_cloudy(self,city_name,state):
+         """How cloudy a certain area is"""
+         city_name = city_name
+         state = state
+         cloudiness = access_api(weather_phenomena= 'cloudiness')
+         return cloudiness
     
     
     
