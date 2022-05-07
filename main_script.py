@@ -15,19 +15,19 @@ class City:
         self.city_name = city_name
         self.state = state
         
-        self.current_temp = access_api(self.name, self.state, 'current_temp')
-        self.feels_like_temp = access_api(self.name, self.state, 'feels_like_temp')
-        self.max_temp = access_api(self.name, self.state, 'max_temp')
-        self.min_temp = access_api(self.name, self.state, 'min_temp')
-        self.air_pressure = access_api(self.name, self.state, 'air_pressure')
-        self.humidity = access_api(self.name, self.state, 'humidity')
-        self.cloudiness = access_api(self.name, self.state, 'cloudiness')
-        self.wind_speed = access_api(self.name, self.state, 'wind_speed')
-        self.wind_direction = access_api(self.name, self.state, 'wind_direction')
-        self.rain_volume_past_1hr_mm(self.name, self.state, "rain_1hr")
-        self.rain_volume_past_3hr_mm(self.name, self.state, "rain_3hr")
-        self.snow_volume_past_1hr_mm(self.name, self.state, "snow_1hr")
-        self.snow_volume_past_3hr_mm(self.name, self.state, "snow_3hr")
+        self.current_temp = access_api(self.city_name, self.state, 'current_temp')
+        self.feels_like_temp = access_api(self.city_name, self.state, 'feels_like_temp')
+        self.max_temp = access_api(self.city_name, self.state, 'max_temp')
+        self.min_temp = access_api(self.city_name, self.state, 'min_temp')
+        self.air_pressure = access_api(self.city_name, self.state, 'air_pressure')
+        self.humidity = access_api(self.city_name, self.state, 'humidity')
+        self.cloudiness = access_api(self.city_name, self.state, 'cloudiness')
+        self.wind_speed = access_api(self.city_name, self.state, 'wind_speed')
+        self.wind_direction = access_api(self.city_name, self.state, 'wind_direction')
+        #self.rain_volume_past_1hr_mm = access_api(self.city_name, self.state, "rain_1hr")
+        #self.rain_volume_past_3hr_mm = access_api(self.city_name, self.state, "rain_3hr")
+        #self.snow_volume_past_1hr_mm = access_api(self.city_name, self.state, "snow_1hr")
+        #self.snow_volume_past_3hr_mm = access_api(self.city_name, self.state, "snow_3hr")
 
 #THIS Trend() FUNCTION IS OBSOLETE; WE WILL MAKE SEPARATE TREND FUNCTIONS FOR EFFICIENCY'S SAKE      
 def Trend():
@@ -56,8 +56,8 @@ def access_api(city_name, state, weather_phenomena):
     main_weather_measures = weather_data['main']
     clouds_data = weather_data['clouds']
     wind_data = weather_data['wind']
-    rain_data = weather_data['rain']
-    snow_data = weather_data['snow']
+    #rain_data = weather_data['rain']
+    #snow_data = weather_data['snow']
     
     
     if weather_phenomena == "current_temp":
@@ -87,18 +87,18 @@ def access_api(city_name, state, weather_phenomena):
     elif weather_phenomena == "wind_direction":
         wind_direction_data = wind_data["deg"]
         return wind_direction_data
-    elif weather_phenomena == "rain_1hr":
-        rain_1hr_data = rain_data["1hr"]
-        return rain_1hr_data
-    elif weather_phenomena == "rain_3hr":
-        rain_3hr_data = rain_data["3hr"]
-        return rain_3hr_data
-    elif weather_phenomena == "snow_1hr":
-        snow_1hr_data = snow_data["1hr"]
-        return snow_1hr_data
-    elif weather_phenomena == "snow_3hr":
-        snow_3hr_data = snow_data["3hr"]
-        return snow_3hr_data
+    #elif weather_phenomena == "rain_1hr":
+        #rain_1hr_data = rain_data["1hr"]
+        #return rain_1hr_data
+    #elif weather_phenomena == "rain_3hr":
+        #rain_3hr_data = rain_data["3hr"]
+        #return rain_3hr_data
+    #elif weather_phenomena == "snow_1hr":
+        #snow_1hr_data = snow_data["1hr"]
+        #return snow_1hr_data
+    #elif weather_phenomena == "snow_3hr":
+        #snow_3hr_data = snow_data["3hr"]
+        #return snow_3hr_data
         
 
 
@@ -158,4 +158,4 @@ while city_and_state_verification(second_city_name, second_city_state) == False:
 first_city = City(first_city_name, first_city_state)
 second_city = City(second_city_name, second_city_state)
 
-weather_report(first_city, second_city)
+#weather_report(first_city, second_city)
