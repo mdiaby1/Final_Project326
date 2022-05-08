@@ -3,7 +3,6 @@
 import json
 import requests
 
-#NEED 6 MORE ORIGINAL FUNCTIONS - MORY & OTHER MEMBERS WILL DO THIS 
 #NEED TO DOCUMENT CODE
 #NEED TO INCLUDE UNIT TESTS (creating a city object, testing each function like city_and_state_validation)
 
@@ -26,7 +25,21 @@ class City:
         self.wind_direction = access_api(self.city_name, self.state, 'wind_direction')
         self.visibility = access_api(self.city_name, self.state, 'visibility')
 
-#PUT THE NEW TREND FUNCTIONS HERE
+#This method warns if the feels like temperature is dangerous to human health
+#THIS IS NOT MEDICAL ADVICE!
+#EXTREME HEAT TEMPERATURES INFO COMES FROM THE FOLLOWING WEBSITE: https://www.healthline.com/health/extreme-temperature-safety#extreme-heat-temperatures
+#EXTREME COLD TEMPERATURES INFO COMES FROM THE FOLLOWING WEBSITE: https://www.theladders.com/career-advice/this-is-the-point-when-cold-weather-becomes-dangerous#:~:text=While%2032%C2%B0F%20is,regulating%20their%20%5Bbody%5D%20temperature.
+def dangerous_temps_warning(city):
+    dangerous_temps_warning_str = ""
+    
+    if city.feels_like_temp >= 90 or city.feels_like_temp <= 32:
+        dangerous_temps_warning_str += ("Please be careful. The feels like temperature (" + str(city.feels_like_temp) + "°F) for "  + str(city.city_name) + ", " + str(city.state) + " indicates that "
+                                        "the temperature in the city might be dangerous to your health. Please take proper precautions.")
+    else:
+        dangerous_temps_warning_str += ("No dangerous feels like temperature in " + str(city.city_name) + ", " + str(city.state) + ".")
+        
+    return dangerous_temps_warning_str
+    
 
 def hottest_city(first_city, second_city):
     if first_city.current_temp > second_city.current_temp:
@@ -41,10 +54,101 @@ def hottest_city(first_city, second_city):
         return (str(first_city.city_name) + ", " + str(first_city.state)
                 + " has the same current temperature (" + str(first_city.current_temp) + "°F) as " + str(second_city.city_name) + ", " 
                 + str(second_city.state) + ".")
-        
-def bad_weather_guess(city):
-    if city.air_pressure
+
+#Simple guess of the weather conditions in a city
+#PRESSURE INFO COMES FROM THE FOLLOWING WEBSITE: https://www.livescience.com/39315-atmospheric-pressure.html
+#CLOUD INFO COMES FROM THE FOLLOWING WEBSITE: https://www.thoughtco.com/overcast-sky-definition-3444114#:~:text=That%20is%20why%20a%20weather,or%20five%20to%20seven%20oktas.
+#WINDSPEED INFO COMES FROM THE FOLLOWING WEBSITE: https://spectrumlocalnews.com/tx/south-texas-el-paso/weather/2021/03/17/is-it-breezy--is-it-windy--the-difference-explained--
+def weather_guess(city):
+    weather_guess_str = ""
+    if city.air_pressure >= 29.3:
+        if city.cloudiness <= 60:
+            if city.wind_speed <= 20:
+                weather_guess_str += ("It's probably a nice, sunny day with a small breeze in " + str(city.city_name) + ", " + str(city.state) + "!")
+            else:
+                weather_guess_str += ("It's probably a sunny, but windy day in " + str(city.city_name) + ", " + str(city.state) + ".")
+        elif city.cloudiness > 60 and city.cloudiness < 90:
+            if city.wind_speed <= 20:
+                weather_guess_str += ("It's probably a mostly cloudy day with a small breeze in " + str(city.city_name) + ", " + str(city.state) + ".")
+            else:
+                weather_guess_str += ("It's probably a windy, mostly cloudy day in " + str(city.city_name) + ", " + str(city.state) + ".")
+        else:
+            if city.wind_speed <= 20:
+                weather_guess_str += ("It's probably an overcast day, with a small breeze, but no rain in " + str(city.city_name) + ", " + str(city.state) + ".")
+            else:
+                weather_guess_str += ("It's probably a windy, overcast day, with no rain in " + str(city.city_name) + ", " + str(city.state) + ".")           
+    else:
+        if city.cloudiness <= 60:
+            if city.wind_speed <= 20:
+                weather_guess_str += ("It's probably a nice, sunny day with a small breeze in " + str(city.city_name) + ", " + str(city.state) + "!")
+            else:
+                weather_guess_str += ("It's probably a sunny, but windy day in " + str(city.city_name) + ", " + str(city.state) + ".")
+        elif city.cloudiness > 60 and city.cloudiness < 90:
+            if city.wind_speed <= 20:
+                weather_guess_str += ("It's probably a stormy, mostly cloudy day with a small breeze in " + str(city.city_name) + ", " + str(city.state) + ".")
+            else:
+                weather_guess_str += ("It's probably a windy, mostly cloudy, and stormy day in " + str(city.city_name) + ", " + str(city.state) + ".")
+        else:
+            if city.wind_speed <= 20:
+                weather_guess_str += ("It's probably a stormy, overcast day, with a small breeze in " + str(city.city_name) + ", " + str(city.state) + ".")
+            else:
+                weather_guess_str += ("It's probably a windy, overcast, stormy day in " + str(city.city_name) + ", " + str(city.state) + ".")
+            
+    return weather_guess_str
+
+#Determines cardinal direction from meteorological degrees data
+#THIS INFO COMES FROM THE FOLLOWING WEBSITE: http://snowfence.umn.edu/Components/winddirectionanddegrees.htm
+def meteorological_degrees_direction(city):
+    wind_cardinal_direction_str = ""
     
+    if city.wind_direction >= 348.75 or city.wind_direction <= 11.25:
+        wind_cardinal_direction_str += "N"
+    elif city.wind_direction > 11.25 and city.wind_direction <= 33.75:
+        wind_cardinal_direction_str += "NNE"
+    elif city.wind_direction > 33.75 and city.wind_direction <= 56.25:
+        wind_cardinal_direction_str += "NE"
+    elif city.wind_direction > 56.25 and city.wind_direction <= 78.75:
+        wind_cardinal_direction_str += "ENE"
+    elif city.wind_direction > 78.75 and city.wind_direction <= 101.25:
+        wind_cardinal_direction_str += "E"
+    elif city.wind_direction > 101.25 and city.wind_direction <= 123.75:
+        wind_cardinal_direction_str += "ESE"       
+    elif city.wind_direction > 123.75 and city.wind_direction <= 146.25:
+        wind_cardinal_direction_str += "SE"    
+    elif city.wind_direction > 146.25 and city.wind_direction <= 168.75:
+        wind_cardinal_direction_str += "SSE" 
+    elif city.wind_direction > 168.75 and city.wind_direction <= 191.25:
+        wind_cardinal_direction_str += "S" 
+    elif city.wind_direction > 191.25 and city.wind_direction <= 213.75:
+        wind_cardinal_direction_str += "SSW" 
+    elif city.wind_direction > 213.75 and city.wind_direction <= 236.25:
+        wind_cardinal_direction_str += "SW" 
+    elif city.wind_direction > 236.25 and city.wind_direction <= 258.75:
+        wind_cardinal_direction_str += "WSW" 
+    elif city.wind_direction > 258.75 and city.wind_direction <= 281.25:
+        wind_cardinal_direction_str += "W" 
+    elif city.wind_direction > 281.25 and city.wind_direction <= 303.75:
+        wind_cardinal_direction_str += "WNW" 
+    elif city.wind_direction > 303.75 and city.wind_direction <= 326.25:
+        wind_cardinal_direction_str += "NW"
+    elif city.wind_direction > 326.25 and city.wind_direction < 348.75:
+        wind_cardinal_direction_str += "NNW"    
+    
+    return wind_cardinal_direction_str
+
+#This method notifies a user if the visibility is low in the city they chose
+#Low visibility could make driving very difficult
+#THIS INFO COMES FROM THE FOLLOWING WEBSITE: https://spectrumlocalnews.com/nys/capital-region/weather/2021/04/08/as-far-as-the-eye-can-see
+def low_visibility_warning(city):
+    low_visibility_warning_str = ""
+    
+    if city.visibility <= 0.25:
+        low_visibility_warning_str += ("There is low visibility (" + str(city.visibility) + " mi) in " + str(city.city_name) + ", " + str(city.state)
+                                       + ". Please take caution when driving.")
+    else:
+        low_visibility_warning_str += ("No low visibility in " + str(city.city_name) + ", " + str(city.state) + ".\n")
+    
+    return low_visibility_warning_str
 
 def access_api(city_name, state, weather_phenomena):
     '''works with the openweather api
@@ -130,7 +234,7 @@ def city_and_state_verification(city_name, state):
     else:
         return False
 
-#this function will return a polished weather report using all the data from the two city objects and the multiple trend functions   
+#this method will return a polished weather report using all the data from the two city objects and the multiple insight/highlight functions   
 def weather_report(first_city, second_city):
     city_list = [first_city, second_city]
     
@@ -144,13 +248,17 @@ def weather_report(first_city, second_city):
         print("Humidity: " + str(city.humidity) + "%")
         print("Cloudiness: " + str(city.cloudiness) + "%")
         print("Wind Speed: " + str(city.wind_speed) + " miles per hour")
-        print("Wind Direction: " + str(city.wind_direction) + " degrees")
+        print("Wind Direction: " + str(city.wind_direction) + " degrees " + str(meteorological_degrees_direction(city)))
         print("Visibility: " + str(city.visibility) + " miles *Max API value "
               "is 10 km, so visibility may be greater than 6.22 miles*\n")
     
-    print("*HIGHLIGHTS*")
-    print(hottest_city(first_city, second_city))
-    #call all trend functions here and print what they say
+    
+    print("\n\n******INSIGHTS AND HIGHLIGHTS******")
+    print("\n" + hottest_city(first_city, second_city) + "\n")
+    for city in city_list:
+        print(weather_guess(city))
+        print(dangerous_temps_warning(city))
+        print(low_visibility_warning(city))
     
 if __name__ == "__main__":
     first_city_name = str(input("Please enter the name of the first city you'd like to know the weather for: "))
