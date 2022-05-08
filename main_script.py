@@ -8,9 +8,15 @@ import requests
 
 class City:
     '''Holds information about the city that the user enters
-    Attributes - City that user wants the weather information of
+    Attributes - City that user wants the weather information of 
     '''
     def __init__(self, city_name, state):
+        """
+        Intitializes the variables being used to determine the weather
+    Args:
+        city_name(str): a string that contains the name of a city in any of the U.S' 50 states
+        state(str): a string that contains the name of a state belonging to the U.S
+        """
         self.city_name = city_name
         self.state = state
         
@@ -25,11 +31,17 @@ class City:
         self.wind_direction = access_api(self.city_name, self.state, 'wind_direction')
         self.visibility = access_api(self.city_name, self.state, 'visibility')
 
-#This method warns if the feels like temperature is dangerous to human health
-#THIS IS NOT MEDICAL ADVICE!
-#EXTREME HEAT TEMPERATURES INFO COMES FROM THE FOLLOWING WEBSITE: https://www.healthline.com/health/extreme-temperature-safety#extreme-heat-temperatures
-#EXTREME COLD TEMPERATURES INFO COMES FROM THE FOLLOWING WEBSITE: https://www.theladders.com/career-advice/this-is-the-point-when-cold-weather-becomes-dangerous#:~:text=While%2032%C2%B0F%20is,regulating%20their%20%5Bbody%5D%20temperature.
 def dangerous_temps_warning(city):
+    """ Informs the user about the feels like temperature and warns them about anything that could affect their health(mainly
+    for people with allergies) based on their city or any city
+    #THIS IS NOT MEDICAL ADVICE!
+    #EXTREME HEAT TEMPERATURES INFO COMES FROM THE FOLLOWING WEBSITE: https://www.healthline.com/health/extreme-temperature-safety#extreme-heat-temperatures
+    #EXTREME COLD TEMPERATURES INFO COMES FROM THE FOLLOWING WEBSITE: https://www.theladders.com/career-advice/this-is-the-point-when-cold-weather-becomes-dangerous#:~:text=While%2032%C2%B0F%20is,regulating%20their%20%5Bbody%5D%20temperature.
+    Args:
+        city(str): a string that contains the name of a city in any of the U.S' 50 states
+    Returns:
+         dangerous_temps_warning_str(str): information that provides a warning to the user based on the feels like temp
+     """
     dangerous_temps_warning_str = ""
     
     if city.feels_like_temp >= 90 or city.feels_like_temp <= 32:
@@ -42,6 +54,13 @@ def dangerous_temps_warning(city):
     
 
 def hottest_city(first_city, second_city):
+    """ Compares the temperatures between two cities and returns a string to determine which one is hotter,cooler or the same
+    Args:
+       first_city(str): first U.S city being compared
+       second_city(str): second U.S city being compared
+    Returns:
+        returns a string that determines which one is hotter,cooler or the same
+        """
     if first_city.current_temp > second_city.current_temp:
         return (str(first_city.city_name) + ", " + str(first_city.state) +" is"
                 + " hotter than " + str(second_city.city_name) + ", " 
@@ -55,11 +74,17 @@ def hottest_city(first_city, second_city):
                 + " has the same current temperature (" + str(first_city.current_temp) + "°F) as " + str(second_city.city_name) + ", " 
                 + str(second_city.state) + ".")
 
-#Simple guess of the weather conditions in a city
-#PRESSURE INFO COMES FROM THE FOLLOWING WEBSITE: https://www.livescience.com/39315-atmospheric-pressure.html
-#CLOUD INFO COMES FROM THE FOLLOWING WEBSITE: https://www.thoughtco.com/overcast-sky-definition-3444114#:~:text=That%20is%20why%20a%20weather,or%20five%20to%20seven%20oktas.
-#WINDSPEED INFO COMES FROM THE FOLLOWING WEBSITE: https://spectrumlocalnews.com/tx/south-texas-el-paso/weather/2021/03/17/is-it-breezy--is-it-windy--the-difference-explained--
+
 def weather_guess(city):
+    """ Simple guess of the weather conditions in a city
+        PRESSURE INFO COMES FROM THE FOLLOWING WEBSITE: https://www.livescience.com/39315-atmospheric-pressure.html
+        CLOUD INFO COMES FROM THE FOLLOWING WEBSITE: https://www.thoughtco.com/overcast-sky-definition-3444114#:~:text=That%20is%20why%20a%20weather,or%20five%20to%20seven%20oktas.
+        WINDSPEED INFO COMES FROM THE FOLLOWING WEBSITE: https://spectrumlocalnews.com/tx/south-texas-el-paso/weather/2021/03/17/is-it-breezy--is-it-windy--the-difference-explained--
+    Args:
+        city(str): a string that contains the name of a city in any of the U.S' 50 states
+    Returns:
+        weather_guess_str(str):  a guess of the weather conditions in a city
+     """
     weather_guess_str = ""
     if city.air_pressure >= 29.3:
         if city.cloudiness <= 60:
@@ -96,9 +121,15 @@ def weather_guess(city):
             
     return weather_guess_str
 
-#Determines cardinal direction from meteorological degrees data
-#THIS INFO COMES FROM THE FOLLOWING WEBSITE: http://snowfence.umn.edu/Components/winddirectionanddegrees.htm
+
 def meteorological_degrees_direction(city):
+    """Determines cardinal direction from meteorological degrees data
+    THIS INFO COMES FROM THE FOLLOWING WEBSITE: http://snowfence.umn.edu/Components/winddirectionanddegrees.htm 
+    Args:
+        city(str): a string that contains the name of a city in any of the U.S' 50 states
+    Returns:
+        wind_cardinal_direction_str(str): a string that returns the wind cardinal direction
+    """
     wind_cardinal_direction_str = ""
     
     if city.wind_direction >= 348.75 or city.wind_direction <= 11.25:
@@ -136,10 +167,17 @@ def meteorological_degrees_direction(city):
     
     return wind_cardinal_direction_str
 
-#This method notifies a user if the visibility is low in the city they chose
-#Low visibility could make driving very difficult
-#THIS INFO COMES FROM THE FOLLOWING WEBSITE: https://spectrumlocalnews.com/nys/capital-region/weather/2021/04/08/as-far-as-the-eye-can-see
+
 def low_visibility_warning(city):
+    """
+    This method notifies a user if the visibility is low in the city they chose
+    Low visibility could make driving very difficult
+    THIS INFO COMES FROM THE FOLLOWING WEBSITE: https://spectrumlocalnews.com/nys/capital-region/weather/2021/04/08/as-far-as-the-eye-can-see
+    Args:
+         city(str): a string that contains the name of a city in any of the U.S' 50 states
+    Returns:
+        low_visibility_warning_str(str): a string that notifies a user if the visibility is low in the city they chose
+    """
     low_visibility_warning_str = ""
     
     if city.visibility <= 0.25:
@@ -153,7 +191,7 @@ def low_visibility_warning(city):
 def access_api(city_name, state, weather_phenomena):
     '''works with the openweather api
     Args:
-        The name of the city entered and teh weather associated with that city
+        The name of the city entered,state the city resides in and the weather associated with that city
     Side Effects:
         gets weather data from open weather api
     '''    
@@ -202,9 +240,18 @@ def access_api(city_name, state, weather_phenomena):
         visibility_data_miles = round(visibility_data / 1609, 2)
         return visibility_data_miles
         
-#if city and state not in files, while loop until the user provides a correct city or state
-#CITY AND STATE DATA FROM https://simplemaps.com/data/us-cities
+
 def city_and_state_verification(city_name, state):
+    """ Verification or verifies that the user provides a city that is in the correcct state or if that city/state exists
+        if city and state not in files, while loop until the user provides a correct city or state
+        CITY AND STATE DATA FROM https://simplemaps.com/data/us-cities
+        Args:
+            city_name(str): a string that contains the name of a city in any of the U.S' 50 states
+            state(str): a string that contains the name of a state belonging to the U.S
+        Returns:
+            a string that tells the user the city/state they've provided is invalid
+
+    """
     cities_fh = open("cities.txt", "r")
     cities_fh = cities_fh.read()
     is_city_in_cities_file = None
@@ -234,8 +281,15 @@ def city_and_state_verification(city_name, state):
     else:
         return False
 
-#this method will return a polished weather report using all the data from the two city objects and the multiple insight/highlight functions   
+
 def weather_report(first_city, second_city):
+    """this method will return a polished weather report using all the data from the two city objects and the multiple insight/highlight functions   
+        Args:
+       first_city(str): first U.S city being inputted
+       second_city(str): second U.S city being inputted
+    Returns:
+        returns a polished weather report using all the data from the two city objects 
+    """
     city_list = [first_city, second_city]
     
     for city in city_list:
