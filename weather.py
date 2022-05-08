@@ -29,43 +29,42 @@ class City: "Used to hold information about the city the user asked for"
 
 class Trend:
     """Used to perform data analysis on weather data (i.e., differences in certain aspects of the weather between two cities, or over a certain period of time)"""  
-    def how_windy(city_name,state):
-        '''Tells how windy certain area is'''
-        city_name = city_name
-        state = state
-        windy = access_api(weather_phenomena = "wind_direction"), access_api(weather_phenomena = "wind_speed")
-        return windy
     
-    def max_temp(city_name,state):
-        '''max temp of certain area'''
-        city_name = city_name
-        state = state
-        heat = access_api(weather_phenomena = "max_temp")
-        return heat
-<<<<<<< Updated upstream
-     
-    def Temp_in_area(city_name,state):
-        """The current temp of a certain area"""
-        city_name = city_name
-        state = state
-        temperature = access_api(weather_phenomena= "current_temp")
-        return temperature
+    #Not needed
+    # def how_windy(city_name,state):
+    #     '''Tells how windy certain area is'''
+    #     city_name = city_name
+    #     state = state
+    #     windy = access_api(weather_phenomena = "wind_direction"), access_api(weather_phenomena = "wind_speed")
+    #     return windy
+    
+    #Not needed
+    # def max_temp(city_name,state):
+    #     '''max temp of certain area'''
+    #     city_name = city_name
+    #     state = state
+    #     heat = access_api(weather_phenomena = "max_temp")
+    #     return heat
+    
+    #Not needed
+    # def Temp_in_area(city_name,state):
+    #     """The current temp of a certain area"""
+    #     city_name = city_name
+    #     state = state
+    #     temperature = access_api(weather_phenomena= "current_temp")
+    #     return temperature
 
-     def how_cloudy(self,city_name,state):
-         """How cloudy a certain area is"""
-         city_name = city_name
-         state = state
-         cloudiness = access_api(weather_phenomena= 'cloudiness')
-         return cloudiness
-    
-=======
->>>>>>> Stashed changes
+    #Not needed
+    #  def how_cloudy(self,city_name,state):
+    #      """How cloudy a certain area is"""
+    #      city_name = city_name
+    #      state = state
+    #      cloudiness = access_api(weather_phenomena= 'cloudiness')
+    #      return cloudiness
     
     
     
     
     
-<<<<<<< Updated upstream
-=======
     
->>>>>>> Stashed changes
+    

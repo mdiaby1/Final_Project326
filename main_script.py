@@ -26,7 +26,25 @@ class City:
         self.wind_direction = access_api(self.city_name, self.state, 'wind_direction')
         self.visibility = access_api(self.city_name, self.state, 'visibility')
 
-#PUT THE NEW TREND FUNCTIONS HERE 
+#PUT THE NEW TREND FUNCTIONS HERE
+
+def hottest_city(first_city, second_city):
+    if first_city.current_temp > second_city.current_temp:
+        return (str(first_city.city_name) + ", " + str(first_city.state) +" is"
+                + " hotter than " + str(second_city.city_name) + ", " 
+                + str(second_city.state) + " by " + str(first_city.current_temp-second_city.current_temp) + "°F")
+    elif first_city.current_temp < second_city.current_temp:
+        return (str(first_city.city_name) + ", " + str(first_city.state) +" is"
+                + " colder than " + str(second_city.city_name) + ", " 
+                + str(second_city.state) + " by " + str(second_city.current_temp-first_city.current_temp) + "°F")
+    else:
+        return (str(first_city.city_name) + ", " + str(first_city.state)
+                + " has the same current temperature (" + str(first_city.current_temp) + "°F) as " + str(second_city.city_name) + ", " 
+                + str(second_city.state) + ".")
+        
+def bad_weather_guess(city):
+    if city.air_pressure
+    
 
 def access_api(city_name, state, weather_phenomena):
     '''works with the openweather api
@@ -130,6 +148,8 @@ def weather_report(first_city, second_city):
         print("Visibility: " + str(city.visibility) + " miles *Max API value "
               "is 10 km, so visibility may be greater than 6.22 miles*\n")
     
+    print("*HIGHLIGHTS*")
+    print(hottest_city(first_city, second_city))
     #call all trend functions here and print what they say
     
 if __name__ == "__main__":
