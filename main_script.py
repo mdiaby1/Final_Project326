@@ -151,3 +151,4 @@ if __name__ == "__main__":
     second_city = City(second_city_name, second_city_state)
 
     weather_report(first_city, second_city)
+    
