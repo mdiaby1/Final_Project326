@@ -3,8 +3,9 @@
 import json
 import requests
 
-#NEED TO DOCUMENT CODE
+#NEED TO CHECK CODE DOCSTRINGS, 80 COLUMNS
 #NEED TO INCLUDE UNIT TESTS (creating a city object, testing each function like city_and_state_validation)
+#NEED TO MAKE DOCUMENTATION
 
 class City:
     '''Holds information about the city that the user enters
@@ -240,11 +241,11 @@ def access_api(city_name, state, weather_phenomena):
         visibility_data_miles = round(visibility_data / 1609, 2)
         return visibility_data_miles
         
-
 def city_and_state_verification(city_name, state):
     """ Verification or verifies that the user provides a city that is in the correcct state or if that city/state exists
         if city and state not in files, while loop until the user provides a correct city or state
         CITY AND STATE DATA FROM https://simplemaps.com/data/us-cities
+        The .txt files are in the repository; they were created from the data obtained from the previously mentioned website
         Args:
             city_name(str): a string that contains the name of a city in any of the U.S' 50 states
             state(str): a string that contains the name of a state belonging to the U.S
@@ -280,7 +281,6 @@ def city_and_state_verification(city_name, state):
         return True
     else:
         return False
-
 
 def weather_report(first_city, second_city):
     """this method will return a polished weather report using all the data from the two city objects and the multiple insight/highlight functions   
