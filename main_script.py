@@ -53,7 +53,6 @@ def dangerous_temps_warning(city):
         
     return dangerous_temps_warning_str
     
-
 def hottest_city(first_city, second_city):
     """ Compares the temperatures between two cities and returns a string to determine which one is hotter,cooler or the same
     Args:
@@ -74,7 +73,6 @@ def hottest_city(first_city, second_city):
         return (str(first_city.city_name) + ", " + str(first_city.state)
                 + " has the same current temperature (" + str(first_city.current_temp) + "°F) as " + str(second_city.city_name) + ", " 
                 + str(second_city.state) + ".")
-
 
 def weather_guess(city):
     """ Simple guess of the weather conditions in a city
@@ -122,7 +120,6 @@ def weather_guess(city):
             
     return weather_guess_str
 
-
 def meteorological_degrees_direction(city):
     """Determines cardinal direction from meteorological degrees data
     THIS INFO COMES FROM THE FOLLOWING WEBSITE: http://snowfence.umn.edu/Components/winddirectionanddegrees.htm 
@@ -167,7 +164,6 @@ def meteorological_degrees_direction(city):
         wind_cardinal_direction_str += "NNW"    
     
     return wind_cardinal_direction_str
-
 
 def low_visibility_warning(city):
     """
