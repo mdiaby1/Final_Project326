@@ -8,8 +8,6 @@ Neha Mathur
 import json
 import requests
 
-#NEED TO MAKE DOCUMENTATION
-
 class City:
     '''Holds information about the city that the user enters
     
