@@ -1,8 +1,0 @@
-Create a software application that tells the user about the weather in a certain city just by
-using that city’s name. We want to make it easier to view the weather without having to
-search it up all the time or constantly having to open a weather app. We plan to do this
-by utilizing OpenWeatherMap, an API that gives real time weather data (OpenWeather,
-n.d.). Weather apps often have too many aspects and features that contribute to a user
-feeling overwhelmed on how to interpret what the weather is like and also difficulty in
-preparing for the weather that day. In order to combat and address those issues, our
-project wants to simplify weather apps and just give users what they are looking for.

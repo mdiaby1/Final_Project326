@@ -1,0 +1,51 @@
+Documentation
+
+One to four sentences explaining what your project is and what it does:
+•	Our project is one that asks the user for two cities in the United States (cities in all 50 states are supported, Washington, D.C. and Puerto Rico are also supported) and provides them with a detailed weather report that includes information about both cities and important insights/highlights about the weather data. It uses OpenWeatherMap's "Current weather data" API to do so.
+
+An explanation on how to run the program from the command line:
+•	First, run without debugging in Visual Studio Code, then you will be prompted to enter the name of the first city you'd like to know the weather for. After you enter the name of the first city, you will be prompted to enter the abbreviation of the state the city is located in. For example, you would first enter Baltimore, and then MD. After entering the state abbreviation, you will then be prompted to enter the name of the second city you'd like to know the weather for. After you enter the name of the second city, you will be prompted to enter the abbreviation of the state the city is located in. Then the program will automatically display a weather report using both cities.
+
+Documentation on how to use the program / how to interpret the output of the program:
+•	The weather report tells you what you're looking at. It tells you the following weather information about a city:
+-Current Temperature in Fahrenheit
+-Feels Like Temperature in Fahrenheit
+-Max Temperature in Fahrenheit
+-Min Temperature in Fahrenheit
+-Air Pressure in inches of mercury (inHg)
+-Humidity Percentage
+-Cloudiness Percentage
+-Wind Speed in miles per hour
+-Wind Direction in degrees and cardinal direction
+-Visibility in miles
+•	It also has an insight and highlight section that tells you the following information:
+
+-Whether the first city is hotter, colder or the same current temperature as the second city
+-A guess of how the weather feels like in the city
+-Whether the city has a dangerous feels like temperature or not
+-Whether the city has very low visibility that could cause difficulty driving or not
+
+An annotated bibliography of all sources you used to develop the program and how you used them.
+Bibliography
+Borchard, E. (2021, March 17). Is It Breezy? Is It Windy? The Difference Explained. Retrieved from Spectrum News: https://spectrumlocalnews.com/tx/south-texas-el-paso/weather/2021/03/17/is-it-breezy--is-it-windy--the-difference-explained--
+We used this source to help us create our if-else statements for windspeed in the weather_guess method.
+Healthline Editorial Team. (2018, September 17). Hot and Cold: Extreme Temperature Safety. Retrieved from Healthline: https://www.healthline.com/health/extreme-temperature-safety
+We used this source to help us create our if-else statement in the dangerous_temps_warning method; this one told us at what point hot temperatures become dangerous.
+Lavender, N. (2019, January 12). This is the point when cold weather becomes dangerous. Retrieved from Ladders: https://www.theladders.com/career-advice/this-is-the-point-when-cold-weather-becomes-dangerous#:~:text=While%2032%C2%B0F%20is,regulating%20their%20%5Bbody%5D%20temperature.
+We used this source to help us create our if-else statement in the dangerous_temps_warning method; this one told us at what point cold temperatures become dangerous.
+Morrison, H. (2021, April 9). Clear Views Ahead: What Visibility Really Means. Retrieved from Spectrum News: https://spectrumlocalnews.com/nys/capital-region/weather/2021/04/08/as-far-as-the-eye-can-see
+We used this source to help us create our if-else statement in the low_visibility_warning 
+method.
+Oblack, R. (2020, March 29). What Is an Overcast Sky? Retrieved from ThoughtCo.: https://www.thoughtco.com/overcast-sky-definition-3444114#:~:text=That%20is%20why%20a%20weather,or%20five%20to%20seven%20oktas.
+We used this source to help us create our if-else statements for cloudiness in the
+weather_guess method.
+
+Rao, J. (2013, August 29). Atmospheric Pressure: Definition & Facts. Retrieved from LiveScience: https://www.livescience.com/39315-atmospheric-pressure.html
+We used this source to help us create our if-else statements for air pressure in the
+weather_guess method.
+simplemaps. (2022, May 11). United States Cities Database. Retrieved from simplemaps: https://simplemaps.com/data/us-cities
+We used this source's dataset to help us perform input validation on the name of the city and state abbreviation the user enters in the city_and_state_verification method.
+Table 3: Wind Direction and Degrees. (n.d.). Retrieved from http://snowfence.umn.edu/Components
+We used this source to help us determine the cardinal direction of wind in the meteorological_degrees_direction method.
+
+
