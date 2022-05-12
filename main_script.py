@@ -414,7 +414,7 @@ def city_and_state_verification(city_name, state):
 
     if is_state_in_states_file == False:
         print("\nThe state you have provided is invalid.")
-
+        
     if is_city_in_cities_file == True and is_state_in_states_file == True:
         return True
     else:
