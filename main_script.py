@@ -8,7 +8,6 @@ Neha Mathur
 import json
 import requests
 
-#NEED TO INCLUDE UNIT TESTS (creating a city object, testing each function like city_and_state_validation)
 #NEED TO MAKE DOCUMENTATION
 
 class City:
